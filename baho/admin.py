@@ -1,3 +1,13 @@
 from django.contrib import admin
+from .models import Kurs, Guruh
 
-# Register your models here.
+
+@admin.register(Kurs)
+class KursAdmin(admin.ModelAdmin):
+    list_display = ['id']
+
+
+@admin.register(Guruh)
+class GuruhAdmin(admin.ModelAdmin):
+    list_display = ['id']
+
