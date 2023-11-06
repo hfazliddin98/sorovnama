@@ -9,16 +9,16 @@ from baho.models import Turi, Fan
 class HomeView(View):
     def get(self, request):
         try:
-            fan = Fan.objects.fil(kurs_id=request.user.kurs)
-            # data = Turi.objects.filter(fani_id=0)
-            print(request.users.kurs)
-            # data = fan
+            kurs = request.user.kurs
+            data = Fan.objects.filter(kurs_id=request.user.kurs)          
         except:
             data = ''
+            kurs = ''
 
 
         context = {
             'data':data,
+            'kurs':kurs,
         }
         return render(request, 'asosiy/home.html', context)
 

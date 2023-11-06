@@ -1,5 +1,6 @@
 {% extends "asosiy/asosiy.html" %}
 {% load static %}
+{% load bootstrap5 %}
 
 
 {% block content %}
@@ -11,10 +12,27 @@
         
         </div>
         <div class="row">
-            {% for d in data %}
-                {{d.name}}
-                <a href="{% url 'turi' d.pk %}">{{d.name}}</a>
-            {% endfor %}
+            <form method="post">
+                {% csrf_token %}
+                <select name="oqtuvchi_id">
+                    {% for d in data %}
+                        {{d.name}}
+                        
+                        
+                            <option value="{{d.id}}">{{d.name}}</option>
+                        
+                    {% endfor %}
+                </select>
+                <input name="baho" type="text" placeholder="Baho">
+                <div class="row text-center">
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary text-center">Kirish</button>
+                    {% endbuttons %}
+                </div>
+                
+                
+            </form>
+            
         </div>
     </div>
 

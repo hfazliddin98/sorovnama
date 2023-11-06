@@ -1,24 +1,15 @@
 from django.contrib import admin
-from .models import Fan, Turi
+from .models import Fan, Turi, Oqtuvchi, Sorovnoma
 
 
-# @admin.register(Kurs)
-# class KursAdmin(admin.ModelAdmin):
-#     list_display = ['id']
+@admin.register(Sorovnoma)
+class SorovnomaAdmin(admin.ModelAdmin):
+    list_display = ['id']
 
 
-# @admin.register(Guruh)
-# class GuruhAdmin(admin.ModelAdmin):
-#     list_display = ['id']
-
-# @admin.register(Oqtuvchi)
-# class OqtuvchiAdmin(admin.ModelAdmin):
-#     list_display = ['id']
-
-
-# @admin.register(Dars)
-# class DarsAdmin(admin.ModelAdmin):
-#     list_display = ['id']
+@admin.register(Oqtuvchi)
+class OqtuvchiAdmin(admin.ModelAdmin):
+    list_display = ['id']
 
 @admin.register(Fan)
 class FanAdmin(admin.ModelAdmin):
