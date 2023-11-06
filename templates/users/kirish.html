@@ -1,16 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kirish</title>
-</head>
-<body>
-    <h2>Kirish uchun</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{user.as_p}}
-        <button type="submit">Saqlash</button>
-    </form>
-</body>
-</html>
+{% extends "asosiy/asosiy.html" %}
+{% load static %}
+{% load bootstrap5 %}
+
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+
+    <div class="row vh-100 text-center mt-5">
+        <a href="{% url 'home' %}">Bosh sahifaga qaytish</a>
+    </div>
+    
+
+    {% else %}
+
+        <div class="container vh-100  my-5">
+            <div class="row text-center">
+                <h2>Kirish uchun</h2>
+            </div>
+            <div class="row">
+                <form method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <div class="row text-center">
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary text-center">Kirish</button>
+                        {% endbuttons %}
+                    </div>
+                    
+                    
+                </form>
+            </div>
+        </div>  
+
+    {% endif %}       
+        
+
+        
+      
+
+{% endblock content %}

@@ -1,9 +1,26 @@
-import pandas as pd
-import requests
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
 from django.views import View
-from .forms import KirishForm
-from .models import Talaba
+from .forms import KirishForm, RoyhatForm
+from baho.models import Turi, Fan
+
+
+class HomeView(View):
+    def get(self, request):
+        try:
+            fan = Fan.objects.fil(kurs_id=request.user.kurs)
+            # data = Turi.objects.filter(fani_id=0)
+            print(request.users.kurs)
+            # data = fan
+        except:
+            data = ''
+
+
+        context = {
+            'data':data,
+        }
+        return render(request, 'asosiy/home.html', context)
 
 
 class KirishView(View):
@@ -18,33 +35,50 @@ class KirishView(View):
         }
         return render(request, 'users/kirish.html', context)
 
-    def post(self, request, requests):
+    def post(self, request):
         form = KirishForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            login = data['login']
-            parol = data['parol']
-            print(f'{login} va {parol}')
-            try:
-                login_endpoint = "https://talaba.kspi.uz/rest/v1/auth/login"
-                payload = {                   
-                    "login": '356201103355',
-                    "password": "Hfazliddin98"
-                }
-                req = requests.post(login_endpoint, data=payload)
-                data = req.json()
-                user_token = data["data"]["token"]
-
-                Talaba.objects.create()
-
-
-            except:
-                pass
+            user = authenticate(request, username=data['username'], password=data['password'])
+            if user:
+                login(request, user)
+                return redirect('/')
+            else:
+                return HttpResponse('Nikname yoki parol xato !!!')
+            
         
         context = {
             'form':form,
         }
         return render(request, 'users/kirish.html', context)
+    
+
+class RoyhatView(View):
+
+    def get(self, request):
+        form = RoyhatForm()
+
+
+
+        context = {
+            'form':form,
+        }
+        return render(request, 'users/royhat.html', context)
+
+    def post(self, request):
+        form = RoyhatForm(request.POST)
+        if form.is_valid():
+            new_user = form.save(commit=False)
+            new_user.set_password(
+                form.cleaned_data['password']
+            )
+            new_user.save()          
+            return redirect('/kirish/')   
+        
+        context = {
+            'new_user':new_user,
+        }
+        return render(request, 'users/royhat.html', context)
 
 
 

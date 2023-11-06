@@ -1,14 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
 
-class Talaba(models.Model):
-    login = models.CharField(max_length=255)
-    parol = models.CharField(max_length=255)
-    token = models.CharField(max_length=255)
-    semestr_id = models.CharField(max_length=255)
-    semestr_name = models.CharField(max_length=255)
-    semestr_code = models.CharField(max_length=255)
-    fakultet_id = models.CharField(max_length=255)
-    fakultet_name = models.CharField(max_length=255)
-    rasm = models.URLField(max_length=255 ,blank=True, null=True)
+class Kurs(models.Model):
+    name = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.name
+
+
+class User(AbstractUser):
+    kurs = models.ForeignKey(Kurs, on_delete=models.CASCADE)
