@@ -11,4 +11,4 @@ class Kurs(models.Model):
 
 
 class User(AbstractUser):
-    kurs = models.ForeignKey(Kurs, on_delete=models.CASCADE, null=True, blank=True)
+    kurs = models.ForeignKey(Kurs, on_delete=models.CASCADE)
