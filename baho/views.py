@@ -22,8 +22,6 @@ class OqtuvchiView(View):
             tur = Turi.objects.filter(id=pk)
             kurs = request.user.id
             for t in tur:
-                print(t.fan_id)
-                print(kurs)
                 data = Oqtuvchi.objects.filter(kurs_id=kurs).filter(fan_id=t.fan_id).filter(tur_id=pk)
         except:
             data = ''
@@ -45,23 +43,3 @@ class OqtuvchiView(View):
         return render(request, 'baho/oqtuvchi.html', context)
 
     
-    
-class SorovnomaView(View):
-    def get(self, request):
-        form = SorovnomaForm()
-
-        context = {
-            'form':form,
-        }
-        return render(request, 'baho/sorovnoma.html', context)
-
-    def post(self, request):
-        form = SorovnomaForm(request.POST)
-        if form.is_valid():            
-            form.save()
-            return redirect('/')
-        
-        context = {
-            'form':form,
-        }
-        return render(request, 'baho/sorovnoma.html', context)
