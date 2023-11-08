@@ -69,24 +69,52 @@
     <!-- Navbar End -->
 
     {% if user.is_authenticated %}
-    <div class="container vh-100 pt-5">
+
+        {% if user.is_superuser %}
+
+            <div class="container vh-100 pt-5">
+                <div class="row text-center py-3">
+                    <h1>Bosh admin sahifasiga hush kelibsiz</h1>         
+                </div>
+                <div class="row">
+                    
+                        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">                    
+                            <h6 class="navbar-brand">Barcha talabalarning so`rovnoma natijalari </h6>
+                            <ul class="nav nav-pills">                                
+                                <li class="nav-item">
+                                    <a class="btn btn-primary" href="{% url 'baza' %}">Yuklab olish</a>
+                                </li>                                               
+                            </ul>                   
+                        </nav>
+                             
+                </div>
+                               
+            </div>
+            
+        {% else %}
+
+            <div class="container vh-100 pt-5">
+                
+                <div class="row text-center py-3">
+                    <h2>Matematika-informatika yo`nalishining {{kurs}} talabalariga biriktrilgan fanlar</h2>         
+                </div>
+                <div class="row">
+                    {% for d in data %}
+                        <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">                    
+                            <h6 class="navbar-brand"> {{d.name}} fani uchun mashg`ulotlar !!!</h6>
+                            <ul class="nav nav-pills">                                
+                                <li class="nav-item">
+                                    <a class="btn btn-primary" href="{% url 'turi' d.pk %}">Fan turini tanlang</a>
+                                </li>                                               
+                            </ul>                   
+                        </nav>
+                    {% endfor %}           
+                </div>
+            </div>
+
+        {% endif %}
+    
         
-        <div class="row text-center">
-            <h3>Matematika-informatika yo`nalishining {{kurs}} talabalariga biriktrilgan fanlar</h3>         
-        </div>
-        <div class="row">
-            {% for d in data %}
-                <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">                    
-                    <a class="navbar-brand" href=""> {{d.name}} fani uchun mashg`ulotlar !!!</a>
-                    <ul class="nav nav-pills">                                
-                        <li class="nav-item">
-                            <a class="btn btn-primary" href="{% url 'turi' d.pk %}">Fan turi</a>
-                        </li>                                               
-                    </ul>                   
-                </nav>
-            {% endfor %}           
-        </div>
-    </div>
 
     {% else %}      
         <!-- Carousel Start -->

@@ -72,19 +72,16 @@
 
     {% if user.is_authenticated %}
     <div class="container vh-100 pt-5">
-        <div class="row text-center">
-            <h3>Sizga biriktrilgan o`qituvchini baholang !!!</h3> 
-        
+        <div class="row text-center py-3">
+            <h3>Sizga biriktrilgan o`qituvchini baholang !!!</h3>       
         </div>
         <div class="row">
             <form method="post">
                 {% csrf_token %}
                 <div class="mb-3">
                 <select name="oqtuvchi_id" class="form-select">
-                    {% for d in data %}                                  
-                        
-                            <option value="{{d.id}}">{{d.name}}</option>
-                        
+                    {% for d in data %}                      
+                            <option value="{{d.id}}">{{d.name}}</option>                        
                     {% endfor %}
                 </select>
             </div>
