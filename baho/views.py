@@ -4,13 +4,13 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from .form import SorovnomaForm
-from .models import Turi, Oqtuvchi, Sorovnoma, Baza
+from .models import Umumiy, Oqituvchilar, Sorovnoma, Baza
 
 
 class TuriView(View):
     def get(self, request, pk):
         try:
-            data = Turi.objects.filter(fan_id=pk)
+            data = Umumiy.objects.filter(fan_id=pk)
         except:
             data = ''
 
@@ -22,10 +22,8 @@ class TuriView(View):
 class OqtuvchiView(View):
     def get(self, request, pk):
         try:
-            tur = Turi.objects.filter(id=pk)
-            kurs = request.user.id
-            for t in tur:
-                data = Oqtuvchi.objects.filter(kurs_id=kurs).filter(fan_id=t.fan_id).filter(tur_id=pk)
+            data = Umumiy.objects.filter(id=pk)
+            
         except:
             data = ''
 
@@ -88,11 +86,8 @@ class BazaView(View):
             wb.save(response)
             return response
         
-        else:       
-
-            baza = Sorovnoma.objects.all()
-            print(baza)
-            return HttpResponse('<h1 style="text-center">Malumot topilmadi</h1>')
+        else:                      
+            return HttpResponse('<h1 style="text-center">Malumotlar hali kiritilmagan</h1>')
 
       
 

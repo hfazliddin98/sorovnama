@@ -3,54 +3,22 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from .forms import KirishForm, RoyhatForm
-from baho.models import Turi, Fan, Sorovnoma, Baza
-
-def home(request): 
-        
-    try:            
-            kursi = request.user.kurs
-            data = Fan.objects.filter(kurs_id=request.user.kurs) 
-            sorovnoma = Sorovnoma.objects.filter(baza='0')                      
-            for s in sorovnoma:
-                kurs = s.oqtuvchi_id.kurs_id
-                fan = s.oqtuvchi_id.fan_id
-                tur = s.oqtuvchi_id.tur_id
-                oqtuvchi = s.oqtuvchi_id.name
-                baho = s.baho     
-                print(s.oqtuvchi_id)            
-                
-                if s.baza == '1':
-                    print('update')                       
-                    Baza.objects.update(kurs=kurs, fan=fan, tur=tur, oqtuvchi=oqtuvchi, baho=baho)                        
-                else:                    
-                    print('create')  
-                    Sorovnoma.objects.update(baza='1')                      
-                    Baza.objects.create(kurs=kurs, fan=fan, tur=tur, oqtuvchi=oqtuvchi, baho=baho)
+from baho.models import Sorovnoma, Baza, Umumiy
 
 
-    except:
-            data = ''
-            kursi = ''
-
-
-    context = {
-            'data':data,
-            'kurs':kursi,            
-    }
-    return render(request, 'asosiy/home.html', context)
 
 
 class HomeView(View):
     def get(self, request):        
         try:            
             kursi = request.user.kurs
-            data = Fan.objects.filter(kurs_id=request.user.kurs) 
+            data = Umumiy.objects.filter(kurs=request.user.kurs) 
             sorovnoma = Sorovnoma.objects.filter(baza='0')                      
             for s in sorovnoma:
-                kurs = s.oqtuvchi_id.kurs_id
-                fan = s.oqtuvchi_id.fan_id
-                tur = s.oqtuvchi_id.tur_id
-                oqtuvchi = s.oqtuvchi_id.name
+                kurs = s.umumiy.kurs
+                fan = s.umumiy.fan
+                tur = s.umumiy.tur
+                oqtuvchi = s.umumiy.oqituvchi
                 baho = s.baho                
                                 
                 print('create')  

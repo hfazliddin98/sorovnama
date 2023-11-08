@@ -1,26 +1,30 @@
 from django.contrib import admin
-from .models import Fan, Turi, Oqtuvchi, Sorovnoma, Baza
+from .models import Fanlar, Turlar, Oqituvchilar, Umumiy, Sorovnoma ,Baza
 
 
 @admin.register(Sorovnoma)
 class SorovnomaAdmin(admin.ModelAdmin):
-    list_display = ['id', 'oqtuvchi_id', 'baho', 'baza']
-
-
-@admin.register(Oqtuvchi)
-class OqtuvchiAdmin(admin.ModelAdmin):
-    list_display = ['id', 'kurs_id', 'fan_id', 'tur_id']
-
-@admin.register(Fan)
-class FanAdmin(admin.ModelAdmin):
-    list_display = ['id','kurs_id', 'name']
-
-
-@admin.register(Turi)
-class TuriAdmin(admin.ModelAdmin):
-    list_display = ['id', 'fan_id', 'name']
+    list_display = ['id', 'umumiy', 'baho', 'baza']
 
 @admin.register(Baza)
 class BazaAdmin(admin.ModelAdmin):
     list_display = ['id', 'kurs', 'fan', 'tur', 'oqtuvchi', 'baho']
 
+
+@admin.register(Fanlar)
+class FanlarAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
+
+
+@admin.register(Turlar)
+class TurlarAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
+
+@admin.register(Oqituvchilar)
+class OqituvchilarAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
+
+
+@admin.register(Umumiy)
+class UmumiyAdmin(admin.ModelAdmin):
+    list_display = ['id', 'fan', 'tur', 'oqituvchi']

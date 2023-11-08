@@ -2,38 +2,42 @@ from django.db import models
 from users.models import Kurs
 
 
-class Fan(models.Model):  
-    kurs_id = models.ForeignKey(Kurs, on_delete=models.CASCADE)  
+
+class Fanlar(models.Model):   
     name = models.CharField(max_length=255)
 
     def __str__(self):        
         return self.name
     
-    
-class Turi(models.Model):    
-    fan_id = models.ForeignKey(Fan, on_delete=models.CASCADE)
+class Turlar(models.Model):   
     name = models.CharField(max_length=255)
+
+    def __str__(self):        
+        return self.name
+    
+class Oqituvchilar(models.Model):   
+    name = models.CharField(max_length=255)
+
+    def __str__(self):        
+        return self.name  
+
+
+    
+class Umumiy(models.Model):
+    kurs = models.ForeignKey(Kurs, on_delete=models.CASCADE)    
+    fan = models.ForeignKey(Fanlar, on_delete=models.CASCADE)
+    tur = models.ForeignKey(Turlar, on_delete=models.CASCADE)
+    oqituvchi = models.ForeignKey(Oqituvchilar, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
-    
-
-
-    
-class Oqtuvchi(models.Model):
-    kurs_id = models.ForeignKey(Kurs, on_delete=models.CASCADE)    
-    fan_id = models.ForeignKey(Fan, on_delete=models.CASCADE)
-    tur_id = models.ForeignKey(Turi, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-
-    def __str__(self):        
-        return self.name
+        name = f'{self.id}'
+        return name
     
 
 class Sorovnoma(models.Model):
-    oqtuvchi_id = models.ForeignKey(Oqtuvchi, on_delete=models.CASCADE)
+    umumiy = models.ForeignKey(Umumiy, on_delete=models.CASCADE)
     baho = models.CharField(max_length=255)
-    baza = models.CharField(max_length=10, default=0)
+    baza = models.CharField(max_length=10, blank=True, null=True, default=0)
 
     def __str__(self):
         return self.baho

@@ -79,9 +79,10 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="mb-3">
-                <select name="oqtuvchi_id" class="form-select">
-                    {% for d in data %}                      
-                            <option value="{{d.id}}">{{d.name}}</option>                        
+                <select name="umumiy" class="form-select">
+                    {% for d in data %}
+                        <option disabled>Fan o`qituvchisi</option>                      
+                        <option value="{{d.id}}">{{d.oqituvchi}}</option>                        
                     {% endfor %}
                 </select>
             </div>
