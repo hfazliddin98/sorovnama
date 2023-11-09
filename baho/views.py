@@ -4,25 +4,37 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from .form import SorovnomaForm
-from .models import Umumiy, Oqituvchilar, Sorovnoma, Baza
+from .models import Umumiy, Oqituvchilar, Sorovnoma, Baza, Fan, Tur, Fanlar, Turlar, Oqituvchi
 
 
 class TuriView(View):
     def get(self, request, pk):
-        try:
-            data = Umumiy.objects.filter(fan_id=pk)
+        try:          
+            fan = Fanlar.objects.filter(name=pk)
+            for f in fan: 
+                fan = pk                            
+                data = Tur.objects.filter(kurs=request.user.kurs).filter(fan=f.id).values('name').distinct()
+                
         except:
             data = ''
+            fan = ''
 
         context = {
             'data':data,
+            'fan':fan,
         }
         return render(request, 'baho/turi.html', context)
     
 class OqtuvchiView(View):
-    def get(self, request, pk):
+    def get(self, request, fan, tur):     
         try:
-            data = Umumiy.objects.filter(id=pk)
+            tur = Turlar.objects.filter(name=tur)
+            fan = Fanlar.objects.filter(name=fan)
+            for t in tur:
+                for f in fan:
+
+                    print(fan)
+                    data = Oqituvchi.objects.filter(kurs=request.user.kurs).filter(fan=f.id).filter(tur=t.id).values('name').distinct()
             
         except:
             data = ''
@@ -32,7 +44,7 @@ class OqtuvchiView(View):
         }
         return render(request, 'baho/oqtuvchi.html', context)
     
-    def post(self, request, pk):
+    def post(self, request,fan, pk):
         form = SorovnomaForm(request.POST)
         if form.is_valid():            
             form.save()

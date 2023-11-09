@@ -78,10 +78,10 @@
         <div class="row">
             {% for d in data %}
                 <nav id="navbar-example2" class="navbar bg-body-tertiary px-3 mb-3">                    
-                    <h6 class="navbar-brand"> {{d.fan}} fanining {{d.tur}} mashg`lotidan kiruvchi o`qituvchi baholash</h5>
+                    <h6 class="navbar-brand"> {{d.name}} mashg`lotidan kiruvchi o`qituvchi baholash</h5>
                     <ul class="nav nav-pills">                                
                         <li class="nav-item">
-                            <a class="btn btn-primary" href="{% url 'oqtuvchi' d.pk %}">Baholash</a>
+                            <a class="btn btn-primary" href="{% url 'oqtuvchi' fan d.name %}">Baholash</a>
                         </li>                                               
                     </ul>                   
                 </nav>

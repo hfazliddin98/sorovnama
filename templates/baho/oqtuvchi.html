@@ -80,9 +80,8 @@
                 {% csrf_token %}
                 <div class="mb-3">
                 <select name="umumiy" class="form-select">
-                    {% for d in data %}
-                        <option disabled>Fan o`qituvchisi</option>                      
-                        <option value="{{d.id}}">{{d.oqituvchi}}</option>                        
+                    {% for d in data %}                                         
+                        <option value="{{d.name}}">{{d.name}}</option>                        
                     {% endfor %}
                 </select>
             </div>
