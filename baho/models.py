@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from users.models import Kurs
 
 
@@ -20,6 +21,34 @@ class Oqituvchilar(models.Model):
 
     def __str__(self):        
         return self.name  
+    
+
+class Fan(models.Model):
+    kurs = models.ForeignKey(Kurs, on_delete=models.CASCADE)   
+    name = models.CharField(max_length=255)
+
+    def __str__(self):        
+        return self.name
+    
+class Tur(models.Model):  
+    kurs = models.ForeignKey(Kurs, on_delete=models.CASCADE)    
+    fan = models.ForeignKey(Fanlar, on_delete=models.CASCADE) 
+    name = models.CharField(max_length=255)
+
+    def __str__(self):        
+        return self.name
+    
+class Oqituvchi(models.Model):  
+    kurs = models.ForeignKey(Kurs, on_delete=models.CASCADE)    
+    fan = models.ForeignKey(Fanlar, on_delete=models.CASCADE)
+    tur = models.ForeignKey(Turlar, on_delete=models.CASCADE) 
+    name = models.CharField(max_length=255)
+
+    def __str__(self):        
+        return self.name  
+    
+    def get_absolute_url(self):
+        return reverse("article_detail", kwargs={"fan": self.fan, "tur":self.tur})
 
 
     
@@ -28,6 +57,7 @@ class Umumiy(models.Model):
     fan = models.ForeignKey(Fanlar, on_delete=models.CASCADE)
     tur = models.ForeignKey(Turlar, on_delete=models.CASCADE)
     oqituvchi = models.ForeignKey(Oqituvchilar, on_delete=models.CASCADE)
+    baza = models.CharField(max_length=10, default=0)
 
     def __str__(self):
         name = f'{self.id}'

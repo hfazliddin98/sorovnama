@@ -1,6 +1,19 @@
 from django.contrib import admin
-from .models import Fanlar, Turlar, Oqituvchilar, Umumiy, Sorovnoma ,Baza
+from .models import Fanlar, Turlar, Oqituvchilar, Umumiy, Sorovnoma ,Baza, Fan, Tur, Oqituvchi
 
+
+@admin.register(Fan)
+class FanAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
+
+
+@admin.register(Tur)
+class TurAdmin(admin.ModelAdmin):
+    list_display = ['id', 'kurs', 'fan', 'name']
+
+@admin.register(Oqituvchi)
+class OqituvchiAdmin(admin.ModelAdmin):
+    list_display = ['id', 'kurs', 'fan', 'tur', 'name']
 
 @admin.register(Sorovnoma)
 class SorovnomaAdmin(admin.ModelAdmin):
