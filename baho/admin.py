@@ -40,4 +40,4 @@ class OqituvchilarAdmin(admin.ModelAdmin):
 
 @admin.register(Umumiy)
 class UmumiyAdmin(admin.ModelAdmin):
-    list_display = ['id', 'fan', 'tur', 'oqituvchi']
+    list_display = ['id','kurs', 'fan', 'tur', 'oqituvchi']

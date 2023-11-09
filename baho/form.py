@@ -1,8 +1,8 @@
 from django.forms import ModelForm
-from .models import Sorovnoma
+from .models import Sorovnoma, Baza
 
 
 class SorovnomaForm(ModelForm):
     class Meta:
-        model = Sorovnoma
-        fields = '__all__'
+        model = Baza
+        fields = ['oqtuvchi', 'baho']

@@ -32,8 +32,6 @@ class OqtuvchiView(View):
             fan = Fanlar.objects.filter(name=fan)
             for t in tur:
                 for f in fan:
-
-                    print(fan)
                     data = Oqituvchi.objects.filter(kurs=request.user.kurs).filter(fan=f.id).filter(tur=t.id).values('name').distinct()
             
         except:
@@ -44,10 +42,12 @@ class OqtuvchiView(View):
         }
         return render(request, 'baho/oqtuvchi.html', context)
     
-    def post(self, request,fan, pk):
+    def post(self, request,fan, tur):
         form = SorovnomaForm(request.POST)
-        if form.is_valid():            
-            form.save()
+        if form.is_valid(): 
+            data = form.cleaned_data
+            kurs = request.user.kurs 
+            Baza.objects.create(kurs=kurs, fan=fan, tur=tur, oqtuvchi=data['oqtuvchi'], baho=data['baho'])
             return redirect('/')
         
         context = {

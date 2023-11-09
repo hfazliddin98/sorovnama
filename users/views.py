@@ -12,37 +12,19 @@ class HomeView(View):
     def get(self, request):        
         try:            
             kursi = request.user.kurs
-            # data = Fan.objects.filter(kurs=request.user.kurs)
             data = Fan.objects.filter(kurs=request.user.kurs).values('name').distinct()
             try: 
                 fan = Umumiy.objects.filter(baza='0')
                 for f in fan:
-                    Umumiy.objects.update(baza='1')
-                    if Fan.objects.get(name=f.fan):
-                        print('teng')
-                    else:
-                        Fan.objects.create(kurs=f.kurs, name=f.fan)
-
+                    Umumiy.objects.update(baza='1')                    
+                    Fan.objects.create(kurs=f.kurs, name=f.fan)
                     Tur.objects.create(kurs=f.kurs, fan=f.fan, name=f.tur)
-                    Oqituvchi.objects.create(kurs=f.kurs, fan=f.fan, tur=f.tur, name=f.oqituvchi)
-                
+                    Oqituvchi.objects.create(kurs=f.kurs, fan=f.fan, tur=f.tur, name=f.oqituvchi)                
                 
             except:
                 print('bajarilmadi')
                 
-            try:
-                sorovnoma = Sorovnoma.objects.filter(baza='0')                      
-                for s in sorovnoma:
-                    kurs = s.umumiy.kurs
-                    fan = s.umumiy.fan
-                    tur = s.umumiy.tur
-                    oqtuvchi = s.umumiy.oqituvchi
-                    baho = s.baho                             
-    
-                    Sorovnoma.objects.update(baza='1')                      
-                    Baza.objects.create(kurs=kurs, fan=fan, tur=tur, oqtuvchi=oqtuvchi, baho=baho)
-            except:
-                pass
+           
 
 
         except:
