@@ -89,9 +89,7 @@ class RoyhatView(View):
                 new_user.cleaned_data['password']
             )
             form.save()          
-            return redirect('/kirish/') 
-        else: 
-            return HttpResponse('<h1>Siz kerakli maydonlarni to`ldirmadingiz</h1>') 
+            return redirect('/kirish/')         
         
         context = {
             'form':form,
