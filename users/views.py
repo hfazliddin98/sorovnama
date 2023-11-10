@@ -82,16 +82,15 @@ class RoyhatView(View):
         return render(request, 'users/royhat.html', context)
 
     def post(self, request):
-        try:
-            new_user = RoyhatForm(request.POST)
-            if new_user.is_valid():
-                form = new_user.save(commit=False)
-                form.set_password(
-                    new_user.cleaned_data['password']
-                )
-                form.save()          
-                return redirect('/kirish/')  
-        except:
+        new_user = RoyhatForm(request.POST)
+        if new_user.is_valid():
+            form = new_user.save(commit=False)
+            form.set_password(
+                new_user.cleaned_data['password']
+            )
+            form.save()          
+            return redirect('/kirish/') 
+        else: 
             return HttpResponse('<h1>Siz kerakli maydonlarni to`ldirmadingiz</h1>') 
         
         context = {
