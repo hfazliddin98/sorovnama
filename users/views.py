@@ -92,7 +92,7 @@ class RoyhatView(View):
             return redirect('/kirish/')         
         
         context = {
-            'form':form,
+            'form':new_user,
         }
         return render(request, 'users/royhat.html', context)
     
